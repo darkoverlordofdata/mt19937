@@ -2,6 +2,6 @@ name: mt19937
 version: 0.0.1
 description: Mersenne Twister
 dependencies:
-  browser: any
+  browser: "0.10.0+2"
 dev_dependencies:
-  unittest: any
+  unittest: "0.11.3"
