@@ -174,27 +174,41 @@ double genrand_res53(void)
 
 int main(void)
 {
-//    init_genrand(123);
-//    int i;
-//    for (i=0; i<1000; i++) {
-//      printf("%10lu, ", genrand_int32());
-//      if (i%5==4) printf("\n");
-//    }
-
     int i;
+
+    init_genrand(123);
+    printf("List<int> result1 = [ // 1000 outputs of genrand_int32()\n\n");
+    for (i=0; i<1000; i++) {
+        if (i == 999 ) {
+            printf("\t%10lu]; ", genrand_int32());
+        } else {
+            printf("\t%10lu, ", genrand_int32());
+            if (i%5==4) printf("\n");
+        }
+    }
     unsigned long init[4]={0x123, 0x234, 0x345, 0x456}, length=4;
     init_by_array(init, length);
 
 
-    printf("1000 outputs of genrand_int32()\n");
+    printf("\n\n");
+    printf("List<int> result2 = [ // 1000 outputs of genrand_int32()\n\n");
     for (i=0; i<1000; i++) {
-      printf("%10lu ", genrand_int32());
-      if (i%5==4) printf("\n");
+        if (i == 999) {
+            printf("\t%10lu];", genrand_int32());
+        } else {
+            printf("\t%10lu, ", genrand_int32());
+            if (i%5==4) printf("\n");
+        }
     }
-    printf("\n1000 outputs of genrand_real2()\n");
+    printf("\n\n");
+    printf("List<double> result3 = [ // 1000 outputs of genrand_real2()\n\n");
     for (i=0; i<1000; i++) {
-      printf("%10.8f ", genrand_real2());
-      if (i%5==4) printf("\n");
+        if (i == 999) {
+            printf("\t%10.8f];", genrand_real2());
+        } else {
+            printf("\t%10.8f, ", genrand_real2());
+            if (i%5==4) printf("\n");
+        }
     }
     return 0;
 }
