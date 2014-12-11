@@ -1,5 +1,8 @@
 name: mt19937
 version: 0.0.1
+author: brucedavidson <darkoverlordofdata@gmail.com>
+homepage: https://github.com/darkoverlordofdata/mt19937
+
 description: Mersenne Twister
 dependencies:
   browser: ">=0.10.0+2 <0.11.0"

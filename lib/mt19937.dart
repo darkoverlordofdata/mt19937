@@ -134,12 +134,12 @@ class MersenneTwister implements Math.Random {
   /* init_key is the array for initializing keys */
   /* key_length is its length */
   /* slight change for C++, 2004/2/26 */
-  init_by_array(List<int>init_key, int key_length) {
+  init_by_array(List<int> init_key, int key_length) {
     int i, j, k;
     init_genrand(19650218);
     i=1; j=0;
     k = (N>key_length ? N : key_length);
-    for (; k; k--) {
+    for (; k>0; k--) {
       mt[i] = (mt[i] ^ ((mt[i-1] ^ (mt[i-1] >> 30)) * 1664525))
         + init_key[j] + j; /* non linear */
       mt[i] &= 0xffffffff; /* for WORDSIZE > 32 machines */
@@ -147,9 +147,10 @@ class MersenneTwister implements Math.Random {
       if (i>=N) { mt[0] = mt[N-1]; i=1; }
       if (j>=key_length) j=0;
     }
-    for (k=N-1; k; k--) {
+
+    for (k=N-1; k>0; k--) {
       mt[i] = (mt[i] ^ ((mt[i-1] ^ (mt[i-1] >> 30)) * 1566083941))
-      - i; /* non linear */
+        - i; /* non linear */
       mt[i] &= 0xffffffff; /* for WORDSIZE > 32 machines */
       i++;
       if (i>=N) { mt[0] = mt[N-1]; i=1; }
@@ -158,6 +159,32 @@ class MersenneTwister implements Math.Random {
     mt[0] = 0x80000000; /* MSB is 1; assuring non-zero initial array */
 
   }
+
+//  init_by_array(List<int> init_key, int key_length) {
+//    int i, j, k;
+//    init_genrand(19650218);
+//    i=1; j=0;
+//    k = (N>key_length ? N : key_length);
+//    for (; k; k--) {
+//      mt[i] = (mt[i] ^ ((mt[i-1] ^ (mt[i-1] >> 30)) * 1664525))
+//        + init_key[j] + j; /* non linear */
+//      mt[i] &= 0xffffffff; /* for WORDSIZE > 32 machines */
+//      i++; j++;
+//      if (i>=N) { mt[0] = mt[N-1]; i=1; }
+//      if (j>=key_length) j=0;
+//    }
+//
+//    for (k=N-1; k; k--) {
+//      mt[i] = (mt[i] ^ ((mt[i-1] ^ (mt[i-1] >> 30)) * 1566083941))
+//        - i; /* non linear */
+//      mt[i] &= 0xffffffff; /* for WORDSIZE > 32 machines */
+//      i++;
+//      if (i>=N) { mt[0] = mt[N-1]; i=1; }
+//    }
+//
+//    mt[0] = 0x80000000; /* MSB is 1; assuring non-zero initial array */
+//
+//  }
 
   /* generates a random number on [0,0xffffffff]-interval */
   int genrand_int32() {
@@ -202,7 +229,7 @@ class MersenneTwister implements Math.Random {
 
   /* generates a random number on [0,1]-real-interval */
   double genrand_real1() {
-    return genrand_int32() * (1.0 / 4294967295.0);
+    return genrand_int32() * (1.0 / 4294967296.0);
     /* divided by 2^32-1 */
   }
 

@@ -214,6 +214,29 @@ void main() {
     for (i = 0; i < 1000; i++) {
       expect(m.genrand_int32(), equals(cversion[i]));
     }
+
+    MersenneTwister m1 = new MersenneTwister.withArray([0x123, 0x234, 0x345, 0x456]);
+
+    print("\n1000 outputs of genrand_int32()\n");
+    for (i=0; i<1000; i++) {
+        print(m1.genrand_int32());
+    }
+    print("\n1000 outputs of genrand_real2()\n");
+    for (i=0; i<1000; i++) {
+        print(m1.genrand_real2());
+    }
+
   });
 
 }
+
+/**
+ * PASS:
+ *
+    unittest-suite-wait-for-done
+    PASS: test mersenne twister output for seed=123
+
+    All 1 tests passed.
+    unittest-suite-success
+
+*/
